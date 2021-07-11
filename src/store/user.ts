@@ -1,14 +1,17 @@
 import userRequest from '../api/user'
 interface userState {
+    username: string,
     email: string,
     password: number | string,
     isLogin: boolean
 }
 interface userInfo {
+    username: string,
     email: string,
     password: number | string,
 }
 interface registerInfo {
+    username: string,
     email: string,
     nickname: string,
     pass: number | string,
@@ -18,12 +21,19 @@ interface registerInfo {
 const user = {
     namespaced: true,
     state: {
+        username: '',
         email: '',
         password: '',
         isLogin: false
     },
+    getters: {
+        getUsername: (state: userState): string => {
+            return state.username
+        }
+    },
     mutations: {
         changeUserInfo: (state: userState, payload: userInfo): void => {
+            state.username = payload.username;
             state.email = payload.email;
             state.password = payload.password;
             window.sessionStorage.setItem('isLogin', 'true')

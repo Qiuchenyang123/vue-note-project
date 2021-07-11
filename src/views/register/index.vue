@@ -2,6 +2,9 @@
     <div class="registerPageWrap">
         <div class="registerFormWrap">
             <el-form :model="registerForm" :rules="rules" ref="registerForm" label-width="100px" class="registerForm">
+                <el-form-item label="用户名" prop="username">
+                    <el-input v-model="registerForm.username"></el-input>
+                </el-form-item>
                 <el-form-item label="邮箱" prop="email">
                     <el-input v-model="registerForm.email"></el-input>
                 </el-form-item>
@@ -52,6 +55,7 @@
             };
             return {
                 registerForm: {
+                    username: '',
                     email: '',
                     pass: '',
                     checkPass: '',
@@ -59,8 +63,12 @@
                     phone: ''
                 },
                 rules: {
-                    email: [
+                    username: [
                         { required: true, message: '请输入用户名称', trigger: 'blur' },
+                        { min: 2, max: 18, message: '长度在 2 到 18 个字符', trigger: 'blur' },
+                    ],
+                    email: [
+                        { required: true, message: '请输入邮箱', trigger: 'blur' },
                         { min: 5, max: 16, message: '长度在 5 到 16 个字符', trigger: 'blur' },
                     ],
                     pass: [
@@ -85,7 +93,12 @@
                 this.$store.dispatch('user/register', this.registerForm)
                 .then(res => {
                     if (res.code === 1) {
-                        this.$router.push({name: 'login'})
+                        this.$message('注册成功！', {
+                            onClose() {
+                                this.$router.push({name: 'login'})
+                            }
+                        })
+
                     } else {
                         this.$message.error(res.msg)
                     }

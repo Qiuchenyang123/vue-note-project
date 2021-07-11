@@ -3,7 +3,7 @@
         <div class="login-wrapper">
             <div class="header">Login</div>
             <div class="form-wrapper">
-                <el-input type="text" name="email" placeholder="email" v-model="userInfo.email" class="input-item"></el-input>
+                <el-input type="text" name="username" placeholder="username" v-model="userInfo.username" class="input-item"></el-input>
                 <el-input type="password" name="password" placeholder="password" v-model="userInfo.password" class="input-item"></el-input>
                 <button @click="handleLogin" class="btn">Login</button>
             </div>
@@ -21,7 +21,7 @@
         data() {
             return {
                 userInfo: {
-                    email: '',
+                    username: '',
                     password: ''
                 }
             }
