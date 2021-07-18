@@ -3,9 +3,17 @@
         <div class="login-wrapper">
             <div class="header">Login</div>
             <div class="form-wrapper">
-                <el-input type="text" name="username" placeholder="username" v-model="userInfo.username" class="input-item"></el-input>
-                <el-input type="password" name="password" placeholder="password" v-model="userInfo.password" class="input-item"></el-input>
-                <button @click="handleLogin" class="btn">Login</button>
+                <el-form :model="userInfo" :rules="userInfoRules" ref="loginForm" @submit="handleLogin">
+                    <el-form-item prop="username">
+                        <el-input type="text" name="username" placeholder="username" v-model="userInfo.username" class="input-item"></el-input>
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input type="password" name="password" placeholder="password" v-model="userInfo.password" class="input-item"></el-input>
+                    </el-form-item>
+                    <el-link type="primary" class="forgetPassBtn" @click="handleForgetPass">忘记密码</el-link>
+                    <button @click="handleLogin" class="btn" type="button">Login</button>
+                </el-form>
+
             </div>
             <div class="msg">
                 Don't have account?
@@ -23,21 +31,44 @@
                 userInfo: {
                     username: '',
                     password: ''
+                },
+                userInfoRules: {
+                    username: [
+                        {required: true, message: '请输入用户名', trigger: 'blur'},
+                    ],
+                    password: [
+                        {required: true, message: '请输入密码', trigger: 'blur'},
+                    ]
                 }
             }
         },
         methods: {
-            handleLogin() {
-                this.$store.dispatch('user/login', this.userInfo)
-                .then(res => {
-                    console.log(33, res);
-                    if (res.code === 1) {
-                        this.$router.push({name: 'home'})
+            handleLogin(e) {
+                console.log(47, arguments)
+                // eslint-disable-next-line @typescript-eslint/no-this-alias
+                const _this = this;
+                this.$refs['loginForm'].validate((valid) => {
+                    if (valid) {
+                        _this.$store.dispatch('user/login', _this.userInfo)
+                            .then(res => {
+                                console.log(res);
+                                if (res.code === 1) {
+                                    _this.$router.push({name: 'home'})
+                                } else {
+                                    _this.$message.error(res.errMsg)
+                                }
+                            })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
                     }
-                })
+                });
             },
             toRegisterPage() {
                 this.$router.push({name: 'register'})
+            },
+            handleForgetPass() {
+                this.$message.info('123')
             }
         }
     }
@@ -68,6 +99,7 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
+
     }
     .header {
         font-size: 38px;
@@ -108,5 +140,8 @@
     a {
         text-decoration-line: none;
         color: #abc1ee;
+    }
+    .forgetPassBtn {
+        float: right;
     }
 </style>

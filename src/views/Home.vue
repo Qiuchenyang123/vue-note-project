@@ -7,25 +7,27 @@
             <el-container>
                 <el-aside class="side-nav-container" width="280px">
                     <el-menu
+                        default-active="/button"
                             class="el-menu-container"
+                            :router="true"
                             @open="handleOpen"
                             @close="handleClose">
-                        <template v-for="(menu, index) in menuTree">
+                        <template v-for="menu in menuTree">
                             <template v-if="menu.children">
-                                <el-submenu  :index="index" :key="menu.name">
+                                <el-submenu  :index="menu.route" :key="menu.name">
                                     <template slot="title">
                                         <i class="el-icon-location"></i>
                                         <span>{{ menu.title }}</span>
                                     </template>
 
-                                    <el-menu-item-group v-for="(subMenu, subIndex) in menu.children" :key="subMenu.name">
+                                    <el-menu-item-group v-for="subMenu in menu.children" :key="subMenu.name">
                                         <template slot="title"></template>
-                                        <el-menu-item :index="`${index}-${subIndex}`">{{ subMenu.title }}</el-menu-item>
+                                        <el-menu-item :index="subMenu.route">{{ subMenu.title }}</el-menu-item>
                                     </el-menu-item-group>
                                 </el-submenu>
                             </template>
                             <template v-else>
-                                <el-menu-item :index="index" :key="menu.name">
+                                <el-menu-item :index="menu.route" :key="menu.name">
                                     <i class="el-icon-menu"></i>
                                     <span slot="title">{{menu.title}}</span>
                                 </el-menu-item>
@@ -37,7 +39,9 @@
                     <el-main>
                         <router-view></router-view>
                     </el-main>
-                    <el-footer></el-footer>
+                    <el-footer class="my-footer">
+                        张屁屁爱放屁   噗噗噗
+                    </el-footer>
                 </el-container>
             </el-container>
         </el-container>
@@ -70,6 +74,18 @@
                                 title: '基础表单',
                                 route: '/basicForm',
                                 name: 'basicForm',
+                            }
+                        ]
+                    },
+                    {
+                        title: 'Article 文章',
+                        route: '/article',
+                        name: 'article',
+                        children: [
+                            {
+                                title: '文章列表',
+                                route: '/articleList',
+                                name: 'articleList',
                             }
                         ]
                     }
@@ -147,4 +163,8 @@
         }
     }
 
+    .my-footer {
+        text-align: center;
+        line-height: 60px;
+    }
 </style>
