@@ -7,8 +7,8 @@
                     <el-form-item prop="username">
                         <el-input type="text" name="username" placeholder="username" v-model="userInfo.username" class="input-item"></el-input>
                     </el-form-item>
-                    <el-form-item prop="password">
-                        <el-input type="password" name="password" placeholder="password" v-model="userInfo.password" class="input-item"></el-input>
+                    <el-form-item prop="pass">
+                        <el-input type="password" name="password" placeholder="password" v-model="userInfo.pass" class="input-item"></el-input>
                     </el-form-item>
                     <el-link type="primary" class="forgetPassBtn" @click="handleForgetPass">忘记密码</el-link>
                     <button @click="handleLogin" class="btn" type="button">Login</button>
@@ -30,13 +30,13 @@
             return {
                 userInfo: {
                     username: '',
-                    password: ''
+                    pass: ''
                 },
                 userInfoRules: {
                     username: [
                         {required: true, message: '请输入用户名', trigger: 'blur'},
                     ],
-                    password: [
+                    pass: [
                         {required: true, message: '请输入密码', trigger: 'blur'},
                     ]
                 }
@@ -44,7 +44,7 @@
         },
         methods: {
             handleLogin(e) {
-                console.log(47, arguments)
+                console.log(47, e)
                 // eslint-disable-next-line @typescript-eslint/no-this-alias
                 const _this = this;
                 this.$refs['loginForm'].validate((valid) => {

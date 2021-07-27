@@ -5,15 +5,26 @@
             <a href="https://github.com/Agontuk/vue-cropperjs">Github</a>
         </div>
         <hr />
-
+2222
         <input
             ref="input"
             type="file"
             name="image"
             accept="image/*"
             @change="setImage"
+            value="uploader"
         />
-
+        <el-upload
+            class="avatar-uploader"
+            action
+            :auto-upload="false"
+            :show-file-list="false"
+            :on-change="setImage">
+            <img v-if="imageUrl" :src="imageUrl"
+                 class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+2222
         <div class="content">
             <section class="cropper-area">
                 <div class="img-cropper">
@@ -170,16 +181,19 @@
 <script>
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
+import berserk from '../../assets/berserk.jpg'
 
 export default {
+    name: 'my-vue-cropper',
     components: {
         VueCropper,
     },
     data() {
         return {
-            imgSrc: '/assets/images/berserk.jpg',
+            imgSrc: berserk,
             cropImg: '',
             data: null,
+            imageUrl: ''
         };
     },
     methods: {
@@ -227,12 +241,13 @@ export default {
             this.$refs.cropper.setData(JSON.parse(this.data));
         },
         setImage(e) {
-            const file = e.target.files[0];
+            console.log(e);
+            const file = e;
 
-            if (file.type.indexOf('image/') === -1) {
+            /*if (file.type.indexOf('image/') === -1) {
                 alert('Please select an image file');
                 return;
-            }
+            }*/
 
             if (typeof FileReader === 'function') {
                 const reader = new FileReader();
@@ -242,8 +257,9 @@ export default {
                     // rebuild cropperjs with the updated source
                     this.$refs.cropper.replace(event.target.result);
                 };
-
-                reader.readAsDataURL(file);
+                const bb = URL.createObjectURL(file.raw);
+                // reader.readAsDataURL(bb);
+                this.$refs.cropper.replace(bb);
             } else {
                 alert('Sorry, FileReader API not supported');
             }
@@ -262,8 +278,6 @@ export default {
 <style>
 body {
     font-family: Arial, Helvetica, sans-serif;
-    width: 1024px;
-    margin: 0 auto;
 }
 
 input[type="file"] {

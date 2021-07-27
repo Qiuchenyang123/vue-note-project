@@ -6,7 +6,14 @@
 
 <script>
     export default {
-        name: "validateLayout"
+        name: "validateLayout",
+        mounted() {
+            this.$store.dispatch('user/getUserInfo').then((res) => {
+                if (!res.data.userInfo.email) {
+                    this.$router.push({name: 'login'})
+                }
+            })
+        }
     }
 </script>
 

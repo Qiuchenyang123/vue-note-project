@@ -2,7 +2,17 @@
     <div class="home">
         <el-container class="home-container">
             <el-header class="my-header">
-                <span class="usernameTag">{{username}}</span><button @click="handleLogout" class="logoutBtn"><i class="el-icon-switch-button"></i></button>
+                <el-dropdown class="personal-wrap" @command="handleCommand">
+                      <span class="el-dropdown-link">
+                        {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+                      </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="personal">个人中心</el-dropdown-item>
+                        <el-dropdown-item command="personalEdit">修改信息</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+<!--                <span class="usernameTag">{{username}}</span>-->
+                <button @click="handleLogout" class="logoutBtn"><i class="el-icon-switch-button"></i></button>
             </el-header>
             <el-container>
                 <el-aside class="side-nav-container" width="280px">
@@ -88,6 +98,11 @@
                                 name: 'articleList',
                             }
                         ]
+                    },
+                    {
+                        title: 'vue-cropper',
+                        route: '/vueCropper',
+                        name: 'vueCropper',
                     }
                 ]
             }
@@ -110,14 +125,13 @@
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
+            },
+            handleCommand(command) {
+                this.$router.push({name: command})
+                console.log(command);
             }
         },
 
-        mounted() {
-            console.log(84, this.$store);
-            // this.username = this.$store.getters["user/getUsername"]
-            // console.log(this.username);
-        }
     }
 </script>
 
@@ -137,6 +151,13 @@
     .my-header {
         position: relative;
         background: #B3C0D1;
+        .personal-wrap {
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            color: #fff;
+            transform: translateY(-50%);
+        }
         .usernameTag {
             position: absolute;
             right: 50px;

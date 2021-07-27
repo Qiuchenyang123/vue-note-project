@@ -1,24 +1,30 @@
 <template>
     <div class="registerPageWrap">
         <div class="registerFormWrap">
-            <el-form :model="registerForm" :rules="rules" ref="registerForm" label-width="100px" class="registerForm">
+            <el-form :model="registerForm" :rules="rules" ref="registerForm" label-width="120px" class="registerForm">
                 <el-form-item label="用户名" prop="username">
-                    <el-input v-model="registerForm.username"></el-input>
+                    <el-input class="registerFormItem" v-model="registerForm.username"></el-input>
+                </el-form-item>
+                <el-form-item label="头像" prop="avatar">
+                    <myUploader @handleAvatarSuccess="handleAvatarSuccess" :picture="registerForm.avatar" ></myUploader>
                 </el-form-item>
                 <el-form-item label="邮箱" prop="email">
-                    <el-input v-model="registerForm.email"></el-input>
+                    <el-input class="registerFormItem" v-model="registerForm.email"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="pass">
-                    <el-input type="password" v-model="registerForm.pass"></el-input>
+                    <el-input class="registerFormItem" type="password" v-model="registerForm.pass"></el-input>
                 </el-form-item>
                 <el-form-item label="确认密码" prop="checkPass">
-                    <el-input type="password" v-model="registerForm.checkPass"></el-input>
+                    <el-input class="registerFormItem" type="password" v-model="registerForm.checkPass"></el-input>
+                </el-form-item>
+                <el-form-item label="密码提示" prop="passTip">
+                    <el-input class="registerFormItem" type="text" v-model="registerForm.passTip"></el-input>
                 </el-form-item>
                 <el-form-item label="昵称" prop="nickname">
-                    <el-input v-model="registerForm.nickname"></el-input>
+                    <el-input class="registerFormItem" v-model="registerForm.nickname"></el-input>
                 </el-form-item>
                 <el-form-item label="手机号" prop="phone">
-                    <el-input v-model="registerForm.phone"></el-input>
+                    <el-input class="registerFormItem" v-model="registerForm.phone"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('registerForm')">注册</el-button>
@@ -31,8 +37,9 @@
 </template>
 
 <script>
+import myUploader from "@/components/myUploader";
     export default {
-        name: "registerPage",
+        name: "register",
         data() {
             const validatePass = (rule, value, callback) => {
                 if (value === '') {
@@ -56,9 +63,11 @@
             return {
                 registerForm: {
                     username: '',
+                    avatar: '',
                     email: '',
                     pass: '',
                     checkPass: '',
+                    passTip: '',
                     nickname: '',
                     phone: ''
                 },
@@ -66,6 +75,9 @@
                     username: [
                         { required: true, message: '请输入用户名称', trigger: 'blur' },
                         { min: 2, max: 18, message: '长度在 2 到 18 个字符', trigger: 'blur' },
+                    ],
+                    avatar: [
+                        { required: true, message: '请添加头像', trigger: 'submit' },
                     ],
                     email: [
                         { required: true, message: '请输入邮箱', trigger: 'blur' },
@@ -79,11 +91,13 @@
                         { validator: validatePass2, trigger: 'blur' },
                         { required: true, message: '请再次输入密码', trigger: 'blur' },
                     ],
+                    passTip: [
+                    ],
                     nickname: [
-                        { required: true, message: '请输入昵称', trigger: 'blur' },
+                        // { required: true, message: '请输入昵称', trigger: 'blur' },
                     ],
                     phone: [
-                        { required: true, message: '请输入手机号', trigger: 'blur' },
+                        // { required: true, message: '请输入手机号', trigger: 'blur' },
                     ]
                 }
             }
@@ -93,11 +107,10 @@
                 this.$store.dispatch('user/register', this.registerForm)
                 .then(res => {
                     if (res.code === 1) {
-                        this.$message('注册成功！', {
-                            onClose() {
-                                this.$router.push({name: 'login'})
-                            }
-                        })
+                        this.$message('注册成功！')
+                        setTimeout(() => {
+                            this.$router.push({name: 'login'})
+                        }, 3000)
 
                     } else {
                         this.$message.error(res.msg)
@@ -109,7 +122,13 @@
             },
             toLogin() {
                 this.$router.push({name: 'login'})
-            }
+            },
+            handleAvatarSuccess(data) {
+                this.registerForm.avatar = data;
+            },
+        },
+        components: {
+            myUploader
         }
     }
 </script>
@@ -124,12 +143,15 @@
             position: absolute;
             left: 50%;
             top: 50%;
-            width: 370px;
+            width: 470px;
             padding: 60px 20px 20px;
             background-color: #fff;
-            transform: translate(-50%, -60%);
+            transform: translate(-50%, -50%);
             border-radius: 10px;
             box-sizing: border-box;
+            .registerFormItem {
+                width: 260px;
+            }
         }
     }
 </style>

@@ -1,25 +1,38 @@
 import request from "./index";
+import {AxiosPromise} from "axios";
 interface loginInfo {
     email: string,
-    password: number | string
+    pass: number | string
 }
 interface userInfo {
     email: string,
     nickname: string,
     pass: number | string,
     checkPass?: number | string,
-    phone: number
+    phone: number,
+    passTip: string,
+    avatar: string
 }
 
-function login(loginInfo: loginInfo) {
+function login(loginInfo: loginInfo): AxiosPromise {
     return request.post('/user/login', loginInfo)
 }
 
-function register(userInfo: userInfo) {
+function register(userInfo: userInfo): AxiosPromise {
     return request.post('/user/register', userInfo)
+}
+
+function update(userInfo: userInfo): AxiosPromise {
+    return request.post('/user/update', userInfo)
+}
+
+function getUserInfo(): AxiosPromise {
+    return request.get('/user/getUserInfo')
 }
 
 export default {
     login,
-    register
+    register,
+    update,
+    getUserInfo
 }
