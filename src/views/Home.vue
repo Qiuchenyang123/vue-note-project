@@ -103,6 +103,23 @@
                         title: 'vue-cropper',
                         route: '/vueCropper',
                         name: 'vueCropper',
+                    },
+                    {
+                        title: 'map 地图',
+                        route: '/map',
+                        name: 'map',
+                        children: [
+                            {
+                                title: 'vue2leaflet',
+                                route: '/vue2leaflet',
+                                name: 'vue2leaflet',
+                            },
+                            {
+                                title: 'normal-leaflet',
+                                route: '/normal-leaflet',
+                                name: 'normal-leaflet',
+                            }
+                        ]
                     }
                 ]
             }

@@ -44,6 +44,11 @@ const routes: Array<RouteConfig> = [
                 path: '/vueCropper',
                 name: 'vueCropper',
                 component: () => import(/* webpackChunkName: "vueCropper" */ '../views/vue-cropper/my-vue-cropper.vue')
+            },
+            {
+                path: '/vue2leaflet',
+                name: 'vue2leaflet',
+                component: () => import(/* webpackChunkName: "map" */ '../views/map/vue2leaflet.vue')
             }
         ]
     },
