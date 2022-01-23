@@ -84,6 +84,11 @@
                                 title: '基础表单',
                                 route: '/basicForm',
                                 name: 'basicForm',
+                            },
+                            {
+                                title: 'antd-vue 表单',
+                                route: '/antdForm',
+                                name: 'antdForm',
                             }
                         ]
                     },
@@ -115,10 +120,15 @@
                                 name: 'vue2leaflet',
                             },
                             {
-                                title: 'normal-leaflet',
-                                route: '/normal-leaflet',
-                                name: 'normal-leaflet',
-                            }
+                                title: 'normalLeafletMap',
+                                route: '/normalLeafletMap',
+                                name: 'normalLeafletMap',
+                            },
+                            {
+                                title: 'normalLeafletMap2',
+                                route: '/normalLeafletMap2',
+                                name: 'normalLeafletMap2',
+                            },
                         ]
                     }
                 ]

@@ -26,6 +26,11 @@ const routes: Array<RouteConfig> = [
                 component: () => import(/* webpackChunkName: "basicForm" */ '../views/form/basicForm.vue')
             },
             {
+                path: '/antdForm',
+                name: 'antdForm',
+                component: () => import(/* webpackChunkName: "basicForm" */ '../views/form/antd-form.vue')
+            },
+            {
                 path: '/articleList',
                 name: 'articleList',
                 component: () => import(/* webpackChunkName: "articleList" */ '../views/article/articleList.vue')
@@ -49,7 +54,17 @@ const routes: Array<RouteConfig> = [
                 path: '/vue2leaflet',
                 name: 'vue2leaflet',
                 component: () => import(/* webpackChunkName: "map" */ '../views/map/vue2leaflet.vue')
-            }
+            },
+            {
+                path: '/normalLeafletMap',
+                name: 'normalLeafletMap',
+                component: () => import(/* webpackChunkName: "normalLeafletMap" */ '../views/map/normalLeafletMap.vue')
+            },
+            {
+                path: '/normalLeafletMap2',
+                name: 'normalLeafletMap2',
+                component: () => import(/* webpackChunkName: "normalLeafletMap2" */ '../views/map/normalLeafletMap2.vue')
+            },
         ]
     },
     {

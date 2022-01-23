@@ -1,21 +1,22 @@
 <template>
     <div class="map-wrap">
-        <myMap></myMap>
+        <normalMap></normalMap>
     </div>
 </template>
 
 <script>
-import myMap from "./components/myMap";
+import normalMap from "./components/normalMap";
 export default {
-    name: "vue2leaflet",
+    name: "normalLeafletMap",
     components: {
-        myMap
+        normalMap
     }
 }
 </script>
 
 <style scoped>
-.map-wrap{
+.map-wrap {
+    width: 100%;
     height: 100%;
 }
 </style>
